@@ -94,23 +94,23 @@ export default function DeploymentSites() {
       ]
     },
     {
-      id: "oman",
-      name: "Oman",
-      country: "Oman",
-      status: "Planned", 
-      capacity: "TBD",
-      cooling: "TBD",
-      uptime: "TBD",
-      description: "Upcoming strategic expansion into Oman market with advanced mining infrastructure planned.",
-      address: "Oman",
-      coordinates: "21.4735,55.9754",
-      mapUrl: "https://www.google.com/maps/place/Oman/@21.4735,55.9754,6z",
+      id: "abu-dhabi-2",
+      name: "Abu Dhabi 2",
+      country: "United Arab Emirates",
+      status: "Operational", 
+      capacity: "48 MW",
+      cooling: "Hydro-cooled",
+      uptime: "95%",
+      description: "Large-scale mining facility in Abu Dhabi featuring advanced hydro-cooling technology for maximum efficiency and performance.",
+      address: "Abu Dhabi, UAE",
+      coordinates: "24.4539,54.3773",
+      mapUrl: "https://www.google.com/maps/place/24°27'14.0\"N+54°22'38.3\"E/@24.4539,54.3773,17z",
       features: [
-        "Strategic expansion",
-        "Regional diversification",
-        "Future capacity",
-        "Market development",
-        "GCC coverage"
+        "Large-scale operations",
+        "Hydro-cooling technology",
+        "High-capacity infrastructure",
+        "Advanced monitoring systems",
+        "Optimized performance"
       ]
     }
   ];
@@ -137,7 +137,7 @@ export default function DeploymentSites() {
               </div>
               <p className="text-white text-lg md:text-xl max-w-3xl mx-auto">
                 Our strategically located mining facilities across the UAE and GCC region, 
-                currently operating 17.5MW with expansion plans for additional capacity.
+                currently operating 65.5MW with proven infrastructure and performance.
               </p>
             </div>
           </div>
