@@ -48,7 +48,7 @@ export default function Header({ currentSection, onNavigate }: HeaderProps) {
             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F7931A' }}>
               <FaBitcoin className="text-white text-xs md:text-sm" />
             </div>
-            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#A6A6A6' }}>
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#BFBBBB' }}>
               <SiLitecoin className="text-white text-xs md:text-sm" />
             </div>
             <div className="w-6 h-6 md:w-8 md:h-8 bg-yellow-500 rounded-full flex items-center justify-center">
