@@ -87,7 +87,7 @@ export default function GlobalReachSection() {
       companyLogo: "data:image/svg+xml,%3Csvg width='80' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='80' height='40' fill='%23f97316'/%3E%3Ctext x='40' y='25' font-family='Arial' font-size='12' fill='white' text-anchor='middle'%3ERIF%3C/text%3E%3C/svg%3E"
     },
     {
-      quote: "Their expertise in ASIC deployment and cooling solutions reduced our operational costs by 30% while maintaining 99.7% uptime.",
+      quote: "Their expertise in ASIC deployment and cooling solutions reduced our operational costs by 30% while maintaining 95% uptime.",
       author: "Sarah Mitchell",
       title: "Operations Director",
       location: "Alberta",
@@ -260,9 +260,7 @@ export default function GlobalReachSection() {
         
         {/* CTA Section */}
         <div className="text-center mb-16">
-          <h3 className="text-2xl font-bold text-orange-500 mb-6">
-            CTA: Ready to Scale Your Mining Operation?
-          </h3>
+          <h3 className="text-2xl font-bold text-orange-500 mb-6">Ready to Scale Your Mining Operation?</h3>
           <p className="text-white text-lg mb-8 max-w-2xl mx-auto">
             Speak with our team to secure capacity, design your site, or co-mine with the most reliable hosting provider in the region.
           </p>
