@@ -6,7 +6,7 @@ export default function LogoBackdrop() {
       <img
         src={logo71Digital}
         alt="71 Digital Logo Backdrop"
-        className="w-auto h-80 md:h-96 lg:h-[500px] xl:h-[600px] object-contain opacity-[0.02] select-none"
+        className="w-auto h-80 md:h-96 lg:h-[500px] xl:h-[600px] object-contain opacity-[0.05] select-none"
       />
     </div>
   );
