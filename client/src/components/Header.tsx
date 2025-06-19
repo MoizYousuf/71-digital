@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { FaBitcoin, FaEthereum, FaBars, FaTimes } from "react-icons/fa";
-import { SiDogecoin } from "react-icons/si";
+import { FaBitcoin, FaBars, FaTimes } from "react-icons/fa";
+import { SiDogecoin, SiLitecoin } from "react-icons/si";
 import { useLocation } from "wouter";
 import { useState } from "react";
 import logo71Digital from "@assets/71digital logo.png";
@@ -48,8 +48,8 @@ export default function Header({ currentSection, onNavigate }: HeaderProps) {
             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F7931A' }}>
               <FaBitcoin className="text-white text-xs md:text-sm" />
             </div>
-            <div className="w-6 h-6 md:w-8 md:h-8 bg-blue-500 rounded-full flex items-center justify-center">
-              <FaEthereum className="text-white text-xs md:text-sm" />
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#A6A6A6' }}>
+              <SiLitecoin className="text-white text-xs md:text-sm" />
             </div>
             <div className="w-6 h-6 md:w-8 md:h-8 bg-yellow-500 rounded-full flex items-center justify-center">
               <SiDogecoin className="text-white text-xs" />
