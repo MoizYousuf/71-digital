@@ -54,11 +54,8 @@ export default function Header({ currentSection, onNavigate }: HeaderProps) {
             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#C2A633' }}>
               <SiDogecoin className="text-white text-xs" />
             </div>
-            <div className="w-6 h-6 md:w-8 md:h-8 bg-green-500 rounded-full flex items-center justify-center">
-              <svg width="12" height="12" className="md:w-4 md:h-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 20V50L50 35L80 50V20H65V35L50 27L35 35V20H20Z" fill="white"/>
-                <path d="M20 50V80H35V65L50 73L65 65V80H80V50L50 65L20 50Z" fill="white"/>
-              </svg>
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#70C7BA' }}>
+              <span className="text-white font-bold text-xs md:text-sm">K</span>
             </div>
           </div>
         </div>
