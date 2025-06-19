@@ -9,22 +9,20 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="py-8 md:py-12 px-4" id="hero">
-      <div className="container mx-auto max-w-7xl">
+    <section className="relative py-8 md:py-12 px-4 overflow-hidden" id="hero">
+      {/* Large Logo Backdrop */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <img
+          src={logoImagePath}
+          alt="71 Digital Logo Backdrop"
+          className="w-auto h-80 md:h-96 lg:h-[500px] xl:h-[600px] object-contain opacity-5 select-none"
+        />
+      </div>
+      
+      <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-4 md:space-y-6 text-center lg:text-left">
-            {/* Logo and Company Name */}
-            <div className="space-y-4">
-              {/* 71 Digital Logo */}
-              <div className="relative flex justify-center">
-                <img
-                  src={logoImagePath}
-                  alt="71 Digital Logo"
-                  className="h-20 md:h-24 lg:h-32 w-auto object-contain opacity-60"
-                />
-              </div>
-            </div>
 
             {/* Tagline */}
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-orange-500">
