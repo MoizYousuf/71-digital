@@ -35,16 +35,16 @@ export default function PricingSection() {
       buttonColor: "bg-gray-600"
     },
     {
-      name: "Ethiopia",
-      rate: "$0.057 per kW",
+      name: "Turnkey Solutions",
+      rate: "$0.03 per kW",
       cooling: "Air Cooling & Hydro",
-      location: "Ethiopia",
+      location: "UAE, Canada, USA, Oman",
       model: "Bitmain & Whatsminer",
       terms: "1 year and renewable",
       maintenance: "Included",
       repairOnSite: "Available",
       deposit: "2 months",
-      moq: "100+",
+      moq: "1MW+",
       bgColor: "bg-amber-700",
       textColor: "text-white",
       buttonColor: "bg-amber-800"
