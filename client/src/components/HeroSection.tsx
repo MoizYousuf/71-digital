@@ -9,16 +9,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative py-8 md:py-12 px-4 overflow-hidden" id="hero">
-      {/* Large Logo Backdrop */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <img
-          src={logoImagePath}
-          alt="71 Digital Logo Backdrop"
-          className="w-auto h-80 md:h-96 lg:h-[500px] xl:h-[600px] object-contain opacity-5 select-none"
-        />
-      </div>
-      
+    <section className="relative py-8 md:py-12 px-4" id="hero">
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}

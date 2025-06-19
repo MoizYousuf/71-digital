@@ -30,6 +30,13 @@
   --crypto-brown: 22 49% 14%; /* #2D1810 */
 }
 
+/* Ensure all main content appears above the backdrop */
+main, .main-content, [role="main"] {
+  position: relative;
+  z-index: 10;
+}
+}
+
 /* Global brown/orange theme styles */
 body {
   background-color: #1A0F08;
