@@ -51,7 +51,7 @@ export default function Header({ currentSection, onNavigate }: HeaderProps) {
             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#1E3A8A' }}>
               <SiLitecoin className="text-white text-xs md:text-sm" />
             </div>
-            <div className="w-6 h-6 md:w-8 md:h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#C2A633' }}>
               <SiDogecoin className="text-white text-xs" />
             </div>
             <div className="w-6 h-6 md:w-8 md:h-8 bg-green-500 rounded-full flex items-center justify-center">
