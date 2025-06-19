@@ -34,43 +34,83 @@ export default function DeploymentSites() {
 
   const sites = [
     {
-      id: "ras-al-khaimah",
-      name: "Ras Al Khaimah",
+      id: "abu-dhabi",
+      name: "Abu Dhabi",
       country: "United Arab Emirates",
       status: "Operational",
-      capacity: "15 MW",
-      cooling: "Air-cooled & Hydro-cooled",
+      capacity: "9 MW",
+      cooling: "Air-cooled",
       uptime: "97%",
-      description: "Our primary mining facility located in the RAK Digital Assets Oasis, featuring state-of-the-art infrastructure with hybrid cooling systems.",
-      address: "RAK Digital Assets Oasis, Ras Al Khaimah, UAE",
-      coordinates: "25.7889,55.9603", // Ras Al Khaimah coordinates
-      mapUrl: "https://www.google.com/maps/place/Ras+Al+Khaimah,+United+Arab+Emirates/@25.7889,55.9603,12z",
+      description: "Our primary mining facility located in Abu Dhabi, featuring state-of-the-art air-cooling infrastructure.",
+      address: "Abu Dhabi, UAE",
+      coordinates: "24.4539,54.3773",
+      mapUrl: "https://www.google.com/maps/place/24°27'14.0\"N+54°22'38.3\"E/@24.4539,54.3773,17z",
       features: [
         "Industrial-grade infrastructure",
-        "Hybrid cooling systems", 
+        "Air-cooling systems", 
         "24/7 monitoring",
         "Regulatory compliance",
         "Expert on-site teams"
       ]
     },
     {
-      id: "kuwait",
-      name: "Kuwait",
-      country: "Kuwait",
+      id: "al-ain-1",
+      name: "Al Ain",
+      country: "United Arab Emirates",
       status: "Operational", 
-      capacity: "10 MW",
-      cooling: "Immersion cooling",
+      capacity: "5 MW",
+      cooling: "Air-cooled",
       uptime: "96%",
-      description: "Strategic mining location in Kuwait offering competitive power costs and advanced immersion cooling technology for maximum efficiency.",
-      address: "Kuwait Mining Facility, Kuwait",
-      coordinates: "29.3759,47.9774", // Kuwait coordinates
-      mapUrl: "https://www.google.com/maps/place/Kuwait/@29.3759,47.9774,10z",
+      description: "Strategic mining location in Al Ain offering competitive power costs and advanced air-cooling technology for maximum efficiency.",
+      address: "Al Ain, UAE",
+      coordinates: "24.044345,55.565175",
+      mapUrl: "https://www.google.com/maps/place/24°02'39.6\"N+55°33'54.6\"E/@24.044345,55.565175,17z",
       features: [
         "Low-cost power infrastructure",
-        "Immersion cooling technology",
+        "Air-cooling technology",
         "High-efficiency operations",
-        "Strategic GCC location",
+        "Strategic UAE location",
         "Scalable deployment"
+      ]
+    },
+    {
+      id: "al-ain-2",
+      name: "Al Ain Site 2",
+      country: "United Arab Emirates",
+      status: "Operational", 
+      capacity: "3.5 MW",
+      cooling: "Air-cooled",
+      uptime: "97%",
+      description: "Secondary Al Ain facility providing additional capacity with proven air-cooling infrastructure.",
+      address: "Al Ain, UAE",
+      coordinates: "24.143222,55.822639",
+      mapUrl: "https://www.google.com/maps/place/24°08'35.6\"N+55°49'21.5\"E/@24.143222,55.822639,17z",
+      features: [
+        "Proven infrastructure",
+        "Air-cooling systems",
+        "Reliable operations",
+        "Strategic expansion",
+        "High uptime performance"
+      ]
+    },
+    {
+      id: "oman",
+      name: "Oman",
+      country: "Oman",
+      status: "Planned", 
+      capacity: "TBD",
+      cooling: "TBD",
+      uptime: "TBD",
+      description: "Upcoming strategic expansion into Oman market with advanced mining infrastructure planned.",
+      address: "Oman",
+      coordinates: "21.4735,55.9754",
+      mapUrl: "https://www.google.com/maps/place/Oman/@21.4735,55.9754,6z",
+      features: [
+        "Strategic expansion",
+        "Regional diversification",
+        "Future capacity",
+        "Market development",
+        "GCC coverage"
       ]
     }
   ];
@@ -96,8 +136,8 @@ export default function DeploymentSites() {
                 <h1 className="text-3xl md:text-5xl font-bold text-orange-500">Deployment Sites</h1>
               </div>
               <p className="text-white text-lg md:text-xl max-w-3xl mx-auto">
-                Our strategically located mining facilities across the GCC region, 
-                currently operating 25MW with plans to expand to 50MW capacity.
+                Our strategically located mining facilities across the UAE and GCC region, 
+                currently operating 17.5MW with expansion plans for additional capacity.
               </p>
             </div>
           </div>
