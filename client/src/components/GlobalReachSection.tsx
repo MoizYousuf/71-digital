@@ -256,6 +256,19 @@ export default function GlobalReachSection() {
           <div className="text-6xl font-bold text-white mb-8">
             WAYOND
           </div>
+          
+          {/* YouTube Video Embed */}
+          <div className="max-w-4xl mx-auto">
+            <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+              <iframe
+                src="https://www.youtube.com/embed/hQQvYatDakU"
+                title="71 Digital on WAYOND"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          </div>
         </div>
         
         {/* CTA Section */}
