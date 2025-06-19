@@ -17,12 +17,14 @@ export default function HeroSection() {
             {/* Logo and Company Name */}
             <div className="space-y-4">
               {/* 71 Digital Logo */}
-              <div className="relative flex justify-center lg:justify-start">
-                <img
-                  src={logoImagePath}
-                  alt="71 Digital Logo"
-                  className="h-20 md:h-24 lg:h-32 w-auto object-contain"
-                />
+              <div className="relative flex justify-center">
+                <div className="relative bg-black/20 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10">
+                  <img
+                    src={logoImagePath}
+                    alt="71 Digital Logo"
+                    className="h-20 md:h-24 lg:h-32 w-auto object-contain"
+                  />
+                </div>
               </div>
             </div>
 
