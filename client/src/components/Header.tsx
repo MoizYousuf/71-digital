@@ -45,7 +45,7 @@ export default function Header({ currentSection, onNavigate }: HeaderProps) {
       <div className="py-2 md:py-3" style={{ backgroundColor: '#2D1810' }}>
         <div className="container mx-auto px-4 flex justify-center">
           <div className="flex justify-between items-center w-full max-w-xl">
-            <div className="w-6 h-6 md:w-8 md:h-8 bg-orange-500 rounded-full flex items-center justify-center">
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F7931A' }}>
               <FaBitcoin className="text-white text-xs md:text-sm" />
             </div>
             <div className="w-6 h-6 md:w-8 md:h-8 bg-blue-500 rounded-full flex items-center justify-center">
