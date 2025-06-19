@@ -35,7 +35,6 @@ main, .main-content, [role="main"] {
   position: relative;
   z-index: 10;
 }
-}
 
 /* Global brown/orange theme styles */
 body {
