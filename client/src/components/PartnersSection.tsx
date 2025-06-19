@@ -1,4 +1,4 @@
-import partnersImagePath from "@assets/partners.png";
+import partnersImagePath from "@assets/partners 2_1750364607246.png";
 
 export default function PartnersSection() {
   return (
