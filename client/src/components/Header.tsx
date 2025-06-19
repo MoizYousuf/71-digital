@@ -55,7 +55,11 @@ export default function Header({ currentSection, onNavigate }: HeaderProps) {
               <SiDogecoin className="text-white text-xs" />
             </div>
             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: '#70C7BA' }}>
-              <span className="text-white font-bold text-xs md:text-sm">K</span>
+              <img 
+                src="https://cryptologos.cc/logos/kaspa-kas-logo.png" 
+                alt="Kaspa" 
+                className="w-3 h-3 md:w-4 md:h-4"
+              />
             </div>
           </div>
         </div>
