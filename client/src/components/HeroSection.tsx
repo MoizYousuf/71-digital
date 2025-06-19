@@ -23,6 +23,17 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-4 md:space-y-6 text-center lg:text-left">
+            {/* Logo and Company Name */}
+            <div className="space-y-4">
+              {/* 71 Digital Logo */}
+              <div className="relative flex justify-center">
+                <img
+                  src={logoImagePath}
+                  alt="71 Digital Logo"
+                  className="h-20 md:h-24 lg:h-32 w-auto object-contain opacity-60"
+                />
+              </div>
+            </div>
 
             {/* Tagline */}
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-orange-500">
