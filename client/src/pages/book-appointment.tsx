@@ -214,8 +214,28 @@ export default function BookAppointment() {
 
   // Removed scroll listener for better performance
 
+  const appointmentSchema = {
+    "@context": "https://schema.org",
+    "@type": "ReservationService",
+    "name": "Book Mining Consultation - 71 Digital UAE",
+    "description": "Book a consultation appointment with 71 Digital Bitcoin mining experts. Get personalized advice on hosting solutions, site acquisition, and mining operations.",
+    "url": "https://71digital.io/book-appointment",
+    "provider": {
+      "@type": "Organization",
+      "name": "71 Digital Inc"
+    },
+    "serviceType": "Bitcoin Mining Consultation"
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1A0F08' }}>
+      <SEOHead
+        title="Book Mining Consultation - Bitcoin Mining Experts | 71 Digital UAE"
+        description="Book a consultation with 71 Digital Bitcoin mining experts in UAE. Get personalized advice on ASIC hosting, site acquisition, mining operations, and turnkey solutions. Free consultation available."
+        keywords="book mining consultation UAE, bitcoin mining advice, mining expert consultation, cryptocurrency mining consultation, mining consultation UAE, bitcoin mining appointment"
+        canonical="https://71digital.io/book-appointment"
+        schema={appointmentSchema}
+      />
       <Header currentSection={currentSection} onNavigate={handleNavigate} />
       <main>
         {/* Hero Section */}

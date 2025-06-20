@@ -1,9 +1,25 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 export default function TermsOfConditions() {
+  const termsSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Terms and Conditions - 71 Digital UAE",
+    "description": "71 Digital terms and conditions for Bitcoin mining services in UAE. Legal terms governing hosting solutions, site acquisition, and mining operations.",
+    "url": "https://71digital.io/terms-of-conditions"
+  };
+
   return (
     <div className="min-h-screen text-white" style={{ backgroundColor: '#1A0F08' }}>
+      <SEOHead
+        title="Terms and Conditions - 71 Digital UAE | Mining Services Legal Terms"
+        description="71 Digital terms and conditions for Bitcoin mining services in UAE. Legal terms governing ASIC hosting, site acquisition, mining operations, and service agreements."
+        keywords="71 digital terms conditions, mining services terms, Bitcoin mining legal terms, cryptocurrency hosting terms, UAE mining terms"
+        canonical="https://71digital.io/terms-of-conditions"
+        schema={termsSchema}
+      />
       <Header currentSection="terms" onNavigate={() => {}} />
       
       <main className="pt-20">

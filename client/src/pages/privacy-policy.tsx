@@ -1,9 +1,25 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 export default function PrivacyPolicy() {
+  const privacyPolicySchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Policy - 71 Digital UAE",
+    "description": "71 Digital privacy policy outlining data collection, usage, and protection practices for Bitcoin mining services in UAE.",
+    "url": "https://71digital.io/privacy-policy"
+  };
+
   return (
     <div className="min-h-screen text-white" style={{ backgroundColor: '#1A0F08' }}>
+      <SEOHead
+        title="Privacy Policy - 71 Digital UAE | Data Protection & Mining Services"
+        description="71 Digital privacy policy outlining our data collection, usage, and protection practices for Bitcoin mining services in UAE. Learn how we protect your information."
+        keywords="71 digital privacy policy, data protection UAE, mining services privacy, cryptocurrency privacy policy, Bitcoin mining data protection"
+        canonical="https://71digital.io/privacy-policy"
+        schema={privacyPolicySchema}
+      />
       <Header currentSection="privacy" onNavigate={() => {}} />
       
       <main className="pt-20">

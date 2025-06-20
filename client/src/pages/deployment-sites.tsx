@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { 
   MapPin, 
@@ -119,8 +120,32 @@ export default function DeploymentSites() {
     window.open(mapUrl, '_blank');
   };
 
+  const deploymentSitesSchema = {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    "name": "Bitcoin Mining Deployment Sites UAE - 71 Digital",
+    "description": "Bitcoin mining deployment sites across UAE with 65.5MW total capacity. Abu Dhabi and Al Ain locations with hydro-cooling and air-cooling technology.",
+    "url": "https://71digital.io/deployment-sites",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AE",
+      "addressRegion": "Abu Dhabi"
+    },
+    "containedInPlace": {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    }
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1A0F08' }}>
+      <SEOHead
+        title="Bitcoin Mining Deployment Sites UAE - 65.5MW Capacity | 71 Digital"
+        description="Bitcoin mining deployment sites across UAE with 65.5MW total capacity. Professional mining operations in Abu Dhabi and Al Ain with hydro-cooling and air-cooling technology. Strategic UAE locations."
+        keywords="bitcoin mining sites UAE, mining deployment sites, cryptocurrency mining facilities UAE, Abu Dhabi mining sites, Al Ain mining facilities, mining locations UAE"
+        canonical="https://71digital.io/deployment-sites"
+        schema={deploymentSitesSchema}
+      />
       <Header currentSection={currentSection} onNavigate={handleNavigate} />
       <main>
         {/* Hero Section */}
