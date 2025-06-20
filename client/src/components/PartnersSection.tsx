@@ -1,4 +1,4 @@
-import partnersImagePath from "@assets/partners 2_1750364607246.png";
+import partnersImagePath from "@assets/partners 2_1750433672016.png";
 
 export default function PartnersSection() {
   return (
@@ -11,7 +11,7 @@ export default function PartnersSection() {
         <div className="flex justify-center">
           <img
             src={partnersImagePath}
-            alt="Our Partners - Bitmain, Whatsminer, Hiveon, Ciphertech"
+            alt="Our Partners - Bitmain, Whatsminer, Hiveon, BitDeer, Tumilabs, Bhabha Technologies"
             className="max-w-full h-auto"
           />
         </div>
