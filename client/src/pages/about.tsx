@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import mapImage from "@assets/map.png";
 import logoNoText from "@assets/71digital logo - no text.png";
 import ahmadImage from "@assets/ahmed_1750428582092.png";
@@ -69,8 +70,29 @@ export default function About() {
     { name: "Ethiopia", code: "ET" }
   ];
 
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About 71 Digital - Crypto Mining Infrastructure UAE",
+    "description": "Learn about 71 Digital, UAE's leading cryptocurrency mining infrastructure provider with operations across Abu Dhabi and Al Ain.",
+    "url": "https://71digital.io/about",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "71 Digital Inc",
+      "foundingDate": "2023",
+      "description": "Specialized crypto mining infrastructure provider and operator based in UAE"
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="About 71 Digital - Leading Crypto Mining Infrastructure UAE"
+        description="Learn about 71 Digital, UAE's premier cryptocurrency mining infrastructure provider operating 65.5MW across Abu Dhabi and Al Ain. Institutional-grade Bitcoin mining solutions."
+        keywords="about 71 digital, crypto mining UAE, mining infrastructure, bitcoin mining company, cryptocurrency mining UAE, Abu Dhabi mining, Al Ain mining"
+        canonical="https://71digital.io/about"
+        schema={aboutSchema}
+      />
       <Header currentSection={currentSection} onNavigate={scrollToSection} />
       <main>
         {/* About Us Section */}
