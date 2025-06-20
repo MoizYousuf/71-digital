@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { 
   Building2, 
@@ -38,8 +39,41 @@ export default function MiningFarms() {
     }
   };
 
+  const miningFarmsSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "71 Digital Mining Farms UAE",
+    "description": "Enterprise Bitcoin mining farms in UAE with 65.5MW capacity across Abu Dhabi and Al Ain. Professional cryptocurrency mining infrastructure and operations.",
+    "url": "https://71digital.io/mining-farms",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AE",
+      "addressRegion": "Abu Dhabi"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Mining Farm Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bitcoin Mining Hosting"
+          }
+        }
+      ]
+    }
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#1A0F08' }}>
+      <SEOHead
+        title="Bitcoin Mining Farms UAE - 65.5MW Capacity | 71 Digital"
+        description="Professional Bitcoin mining farms in UAE with 65.5MW total capacity across Abu Dhabi and Al Ain. Enterprise mining infrastructure, hydro-cooling technology, and 99% uptime SLA."
+        keywords="bitcoin mining farms UAE, cryptocurrency mining facilities, mining farm Abu Dhabi, mining infrastructure UAE, Bitcoin mining operations, crypto mining facilities UAE"
+        canonical="https://71digital.io/mining-farms"
+        schema={miningFarmsSchema}
+      />
       <Header currentSection={currentSection} onNavigate={handleNavigate} />
       <main>
         {/* Hero Section */}

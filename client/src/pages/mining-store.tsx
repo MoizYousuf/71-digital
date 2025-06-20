@@ -41,8 +41,33 @@ export default function MiningStore() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const storeSchema = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Bitcoin Mining Hardware Store - 71 Digital UAE",
+    "description": "Professional Bitcoin mining hardware including Antminer S21 Pro, S21 Hyd, and Goldshell KD Max. ASIC miners with competitive pricing and UAE delivery.",
+    "url": "https://71digital.io/mining-store",
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Antminer S21 Pro 234TH",
+          "category": "Bitcoin Mining Hardware"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Bitcoin Mining Hardware Store UAE - ASIC Miners | 71 Digital"
+        description="Professional Bitcoin mining hardware store in UAE. Antminer S21 Pro 234TH, S21 Hyd 335TH, Goldshell KD Max miners. Competitive pricing with local delivery and support."
+        keywords="bitcoin mining hardware UAE, ASIC miners UAE, Antminer S21 Pro, mining equipment store, cryptocurrency hardware UAE, mining hardware Dubai, Abu Dhabi mining equipment"
+        canonical="https://71digital.io/mining-store"
+        schema={storeSchema}
+      />
       <Header currentSection={currentSection} onNavigate={handleNavigate} />
       <main>
         {/* Hero Section */}
