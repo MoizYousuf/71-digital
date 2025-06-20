@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
@@ -113,8 +114,33 @@ export default function Contact() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact 71 Digital - Bitcoin Mining Services UAE",
+    "description": "Contact 71 Digital for Bitcoin mining services in UAE. Get quotes for ASIC hosting, site acquisition, and mining infrastructure solutions.",
+    "url": "https://71digital.io/contact",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "71 Digital Inc",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971-XX-XXX-XXXX",
+        "contactType": "customer service",
+        "areaServed": "AE"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Contact 71 Digital - Bitcoin Mining Services UAE | Get Quote"
+        description="Contact 71 Digital for professional Bitcoin mining services in UAE. Get quotes for ASIC hosting, mining infrastructure, site acquisition, and turnkey solutions. Abu Dhabi and Al Ain operations."
+        keywords="contact 71 digital, bitcoin mining quote UAE, ASIC hosting contact, mining services inquiry, cryptocurrency mining UAE contact, Abu Dhabi mining contact"
+        canonical="https://71digital.io/contact"
+        schema={contactSchema}
+      />
       <Header currentSection={currentSection} onNavigate={handleNavigate} />
       <main>
         {/* Hero Section */}

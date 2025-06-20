@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Building2, Zap, HardDrive, Settings, MapPin, Phone, MessageCircle, FileText } from "lucide-react";
 import centerImage from "@assets/center.png";
@@ -89,8 +90,28 @@ export default function Services() {
     }
   ];
 
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Bitcoin Mining Services UAE - 71 Digital",
+    "description": "Comprehensive cryptocurrency mining services including hosting solutions, site acquisition, hardware procurement, and mining operations management.",
+    "url": "https://71digital.io/services",
+    "provider": {
+      "@type": "Organization",
+      "name": "71 Digital Inc"
+    },
+    "serviceType": ["Bitcoin Mining", "ASIC Hosting", "Mining Infrastructure", "Site Management"]
+  };
+
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Bitcoin Mining Services UAE - Hosting & Infrastructure | 71 Digital"
+        description="Comprehensive Bitcoin mining services in UAE including ASIC hosting, site acquisition, hardware procurement, and mining operations management. 65.5MW capacity across Abu Dhabi and Al Ain."
+        keywords="bitcoin mining services, ASIC hosting UAE, mining infrastructure, cryptocurrency hosting, mining farm services, Bitcoin mining UAE, Abu Dhabi mining services"
+        canonical="https://71digital.io/services"
+        schema={servicesSchema}
+      />
       <Header currentSection={currentSection} onNavigate={scrollToSection} />
       <main>
         {/* Hero Section */}

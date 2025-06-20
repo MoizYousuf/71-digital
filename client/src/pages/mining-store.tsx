@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Phone, Download, MessageCircle } from "lucide-react";
 import productsImage from "@assets/4.png";
