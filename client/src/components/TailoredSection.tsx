@@ -1,25 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { Users } from "lucide-react";
+import { Users, Building2, Factory, Globe, Brain } from "lucide-react";
 
 export default function TailoredSection() {
   const minerTypes = [
     {
-      icon: "🏢",
+      icon: <Building2 className="w-5 h-5 text-orange-500" />,
       title: "Family Office: Looking for stable BTC exposure",
       color: "text-white"
     },
     {
-      icon: "🏭",
+      icon: <Factory className="w-5 h-5 text-orange-500" />,
       title: "Large-Scale Miner: Scaling capacity across regions",
       color: "text-white"
     },
     {
-      icon: "🌐",
+      icon: <Globe className="w-5 h-5 text-orange-500" />,
       title: "Sovereign Fund or Gov Entity: Seeking CAPEX infrastructure",
       color: "text-white"
     },
     {
-      icon: "🧠",
+      icon: <Brain className="w-5 h-5 text-orange-500" />,
       title: "Tech Founder or HNWI: Exploring retail-friendly co-mining",
       color: "text-white"
     }
@@ -42,7 +42,7 @@ export default function TailoredSection() {
         <div className="space-y-3 mb-12">
           {minerTypes.map((miner, index) => (
             <div key={index} className="flex items-start space-x-3">
-              <span className="text-lg mt-1">{miner.icon}</span>
+              <div className="mt-1">{miner.icon}</div>
               <span className={`text-lg ${miner.color} leading-relaxed`}>{miner.title}</span>
             </div>
           ))}
