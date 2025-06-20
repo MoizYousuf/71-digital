@@ -90,6 +90,32 @@
 - **tailwindcss**: Utility-first CSS framework
 - **wouter**: Lightweight React router
 
+## SEO Implementation
+
+### SEO Components
+- **SEOHead Component**: Centralized SEO management with dynamic meta tags
+- **Structured Data**: JSON-LD schema markup for all page types
+- **Open Graph**: Social media optimization for sharing
+- **Meta Tags**: Comprehensive title, description, and keyword optimization
+
+### Page-Specific SEO
+- **Home Page**: Organization schema with business information
+- **About Page**: AboutPage schema with company details
+- **Services Page**: Service schema with offerings catalog
+- **Mining Store**: Store schema with product listings
+- **Mining Farms**: Organization schema with location data
+- **Deployment Sites**: Place schema with geographical markup
+- **Contact Page**: ContactPage schema with contact information
+- **Book Appointment**: ReservationService schema for consultations
+- **Legal Pages**: WebPage schema for privacy and terms
+
+### SEO Features
+- Canonical URLs for duplicate content prevention
+- Dynamic title generation with brand consistency
+- Location-based SEO for UAE operations
+- Industry-specific keywords for Bitcoin mining
+- Technical SEO optimization with proper heading structure
+
 ### Development Dependencies
 - **vite**: Fast build tool and dev server
 - **typescript**: Type safety and IntelliSense
