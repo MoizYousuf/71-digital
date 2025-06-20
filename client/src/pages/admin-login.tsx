@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,6 +60,14 @@ export default function AdminLogin() {
     loginMutation.mutate(data);
   };
 
+  const adminLoginSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Admin Login - 71 Digital Management Portal",
+    "description": "Secure admin login portal for 71 Digital Bitcoin mining operations management. Access contact submissions, appointments, and admin controls.",
+    "url": "https://71digital.io/admin-login"
+  };
+
   return (
     <div 
       className="min-h-screen flex items-center justify-center p-4"
@@ -66,6 +75,12 @@ export default function AdminLogin() {
         background: "linear-gradient(135deg, #1A0F08 0%, #2D1810 50%, #1A0F08 100%)"
       }}
     >
+      <SEOHead
+        title="Admin Login - 71 Digital Management Portal | Secure Access"
+        description="Secure admin login portal for 71 Digital Bitcoin mining operations management. Access contact submissions, appointment bookings, and administrative controls."
+        canonical="https://71digital.io/admin-login"
+        schema={adminLoginSchema}
+      />
       <Card className="w-full max-w-md bg-white/10 backdrop-blur-sm border-orange-500/30">
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center">

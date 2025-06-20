@@ -1,9 +1,25 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEOHead from '@/components/SEOHead';
 
 export default function TermsOfUse() {
+  const termsOfUseSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Terms of Use - 71 Digital UAE",
+    "description": "71 Digital terms of use for website and Bitcoin mining services in UAE. Usage guidelines and legal requirements for accessing our services.",
+    "url": "https://71digital.io/terms-of-use"
+  };
+
   return (
     <div className="min-h-screen text-white" style={{ backgroundColor: '#1A0F08' }}>
+      <SEOHead
+        title="Terms of Use - 71 Digital UAE | Website Usage Guidelines"
+        description="71 Digital terms of use for website and Bitcoin mining services in UAE. Usage guidelines, legal requirements, and terms for accessing our mining infrastructure services."
+        keywords="71 digital terms of use, website terms UAE, mining services usage, Bitcoin mining terms, cryptocurrency terms of use"
+        canonical="https://71digital.io/terms-of-use"
+        schema={termsOfUseSchema}
+      />
       <Header currentSection="terms" onNavigate={() => {}} />
       
       <main className="pt-20">
