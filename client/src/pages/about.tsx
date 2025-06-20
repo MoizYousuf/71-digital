@@ -3,10 +3,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import mapImage from "@assets/map.png";
 import logoNoText from "@assets/71digital logo - no text.png";
-import ahmadImage from "@assets/ahmad.png";
-import husseinImage from "@assets/hussein.png";
-import mohammadImage from "@assets/mohammad.png";
-import tariqImage from "@assets/tariq.png";
+import ahmadImage from "@assets/ahmed_1750428582092.png";
+import husseinImage from "@assets/hussein_1750428582094.png";
+import mohammadImage from "@assets/moh_1750428582095.png";
+import tariqImage from "@assets/tariq_1750428582095.png";
 
 export default function About() {
   const [currentSection, setCurrentSection] = useState("about");
