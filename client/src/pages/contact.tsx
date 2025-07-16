@@ -376,7 +376,7 @@ export default function Contact() {
                 <p className="text-gray-300 text-sm mb-4">Send detailed inquiries to our team</p>
                 <button 
                   className="text-orange-500 font-medium hover:text-orange-400 transition-colors"
-                  onClick={() => window.open('mailto:info@71digital.com?subject=Mining Services Inquiry&body=Hello 71 Digital team,%0D%0A%0D%0AI am interested in learning more about your mining services.%0D%0A%0D%0APlease contact me to discuss my requirements.%0D%0A%0D%0AThank you.')}
+                  onClick={() => window.open('mailto:info@71digital.io?subject=Mining Services Inquiry&body=Hello 71 Digital team,%0D%0A%0D%0AI am interested in learning more about your mining services.%0D%0A%0D%0APlease contact me to discuss my requirements.%0D%0A%0D%0AThank you.')}
                 >
                   Send Email
                 </button>
