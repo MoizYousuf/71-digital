@@ -12,7 +12,6 @@ export default function PricingSection() {
       model: "Bitmain & Whatsminer",
       terms: "2 year and renewable",
       maintenance: "Included",
-      repairOnSite: "Available",
       deposit: "One Month Advance",
       moq: "$3000",
       bgColor: "bg-orange-500",
@@ -27,7 +26,6 @@ export default function PricingSection() {
       model: "Bitmain & Whatsminer",
       terms: "1 year and renewable",
       maintenance: "Included",
-      repairOnSite: "Available",
       deposit: "2 months",
       moq: "1MW+",
       bgColor: "bg-amber-700",
@@ -79,10 +77,6 @@ export default function PricingSection() {
                     <div className="flex justify-between">
                       <span className="font-medium">Maintenance:</span>
                       <span>{plan.maintenance}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">Repair On-Site:</span>
-                      <span>{plan.repairOnSite}</span>
                     </div>
                     {plan.deposit && (
                       <div className="flex justify-between">
