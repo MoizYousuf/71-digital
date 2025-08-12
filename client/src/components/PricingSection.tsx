@@ -20,21 +20,6 @@ export default function PricingSection() {
       buttonColor: "bg-orange-600"
     },
     {
-      name: "Premium",
-      rate: "$0.063 per kW",
-      cooling: "Air Cooling & Hydro",
-      location: "UAE",
-      model: "Bitmain & Whatsminer",
-      terms: "1 year and renewable",
-      maintenance: "Included",
-      repairOnSite: "Available",
-      deposit: "2 months",
-      moq: "100+",
-      bgColor: "bg-gray-500",
-      textColor: "text-white",
-      buttonColor: "bg-gray-600"
-    },
-    {
       name: "Turnkey Solutions",
       rate: "$0.03 per kW",
       cooling: "Air Cooling & Hydro",
@@ -54,7 +39,7 @@ export default function PricingSection() {
   return (
     <section className="py-16 px-4" id="pricing">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {plans.map((plan, index) => (
             <Card key={index} className={`${plan.bgColor} ${plan.textColor} border-none rounded-2xl shadow-xl`}>
               <CardContent className="p-8">
