@@ -94,7 +94,7 @@ function AnimatedCounter({ targetValue, duration = 2000 }: AnimatedCounterProps)
 
 export default function StatsSection() {
   const stats = [
-    { value: "95%", label: "Uptime" },
+    { value: "100%", label: "Uptime" },
     { value: "Track", label: "Record" },
     { value: "25 MW", label: "Operating" },
     { value: "UAE", label: "Licensed" },
