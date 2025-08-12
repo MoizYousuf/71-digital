@@ -9,7 +9,6 @@ export default function PricingSection() {
       hashratePrice: "Cost of miner + $500",
       rate: "$0.067 per kWh",
       cooling: "Air Cooling & Hydro",
-      location: "UAE",
       model: "Bitmain & Whatsminer",
       terms: "2 year and renewable",
       maintenance: "Included",
@@ -63,10 +62,12 @@ export default function PricingSection() {
                       <span className="font-medium">Cooling:</span>
                       <span>{plan.cooling}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="font-medium">Location:</span>
-                      <span>{plan.location}</span>
-                    </div>
+                    {plan.location && (
+                      <div className="flex justify-between">
+                        <span className="font-medium">Location:</span>
+                        <span>{plan.location}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span className="font-medium">Model:</span>
                       <span>{plan.model}</span>
