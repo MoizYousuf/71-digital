@@ -5,16 +5,18 @@ import { Calendar } from "lucide-react";
 export default function PricingSection() {
   const plans = [
     {
-      name: "Pro",
-      rate: "$0.065 per kW",
+      name: "Cloud Hosting",
+      hashratePrice: "One-time cost equal to physical miner hardware",
+      setupFee: "$500 Setup Fee",
+      rate: "$0.067 per kWh",
       cooling: "Air Cooling & Hydro",
       location: "UAE",
       model: "Bitmain & Whatsminer",
-      terms: "1 year and renewable",
+      terms: "Monthly hosting based on actual electricity use",
       maintenance: "Included",
       repairOnSite: "Available",
-      deposit: "2 months",
-      moq: "10-100",
+      deposit: "One Month Advance",
+      moq: "Individual miners accepted",
       bgColor: "bg-orange-500",
       textColor: "text-black",
       buttonColor: "bg-orange-600"
@@ -47,6 +49,18 @@ export default function PricingSection() {
                   <h3 className="text-2xl font-bold text-center">{plan.name}</h3>
                   
                   <div className="space-y-3 text-sm">
+                    {plan.hashratePrice && (
+                      <div className="flex justify-between">
+                        <span className="font-medium">Hashrate Purchase:</span>
+                        <span className="text-right">{plan.hashratePrice}</span>
+                      </div>
+                    )}
+                    {plan.setupFee && (
+                      <div className="flex justify-between">
+                        <span className="font-medium">Setup Fee:</span>
+                        <span>{plan.setupFee}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span className="font-medium">Rate:</span>
                       <span>{plan.rate}</span>
@@ -65,7 +79,7 @@ export default function PricingSection() {
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">Terms:</span>
-                      <span>{plan.terms}</span>
+                      <span className="text-right">{plan.terms}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">Maintenance:</span>
