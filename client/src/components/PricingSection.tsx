@@ -27,11 +27,11 @@ export default function PricingSection() {
       cooling: "Air Cooling & Hydro",
       location: "UAE, Canada, USA, Oman",
       model: "Bitmain & Whatsminer",
-      terms: "1 year and renewable",
+      terms: "2 year and renewable",
       maintenance: "Included",
       repairOnSite: "Available",
       deposit: "2 months",
-      moq: "1MW+",
+      moq: "$3000",
       bgColor: "bg-amber-700",
       textColor: "text-white",
       buttonColor: "bg-amber-800"
