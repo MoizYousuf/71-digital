@@ -7,7 +7,6 @@ export default function PricingSection() {
     {
       name: "Cloud Hosting",
       hashratePrice: "Cost of miner + $500",
-      setupFee: "$500 Setup Fee",
       rate: "$0.067 per kWh",
       cooling: "Air Cooling & Hydro",
       location: "UAE",
@@ -55,12 +54,7 @@ export default function PricingSection() {
                         <span className="text-right">{plan.hashratePrice}</span>
                       </div>
                     )}
-                    {plan.setupFee && (
-                      <div className="flex justify-between">
-                        <span className="font-medium">Setup Fee:</span>
-                        <span>{plan.setupFee}</span>
-                      </div>
-                    )}
+
                     <div className="flex justify-between">
                       <span className="font-medium">Rate:</span>
                       <span>{plan.rate}</span>
