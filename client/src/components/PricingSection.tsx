@@ -7,7 +7,6 @@ export default function PricingSection() {
     {
       name: "Cloud Hosting",
       hashratePrice: "Cost of miner + $500",
-      rate: "$0.067 per kWh",
       cooling: "Air Cooling & Hydro",
       model: "Bitmain & Whatsminer",
       terms: "2 year and renewable",
@@ -20,7 +19,6 @@ export default function PricingSection() {
     },
     {
       name: "Turnkey Solutions",
-      rate: "$0.03 per kW",
       cooling: "Air Cooling & Hydro",
       location: "UAE, Canada, USA, Oman",
       model: "Bitmain & Whatsminer",
@@ -52,10 +50,6 @@ export default function PricingSection() {
                       </div>
                     )}
 
-                    <div className="flex justify-between">
-                      <span className="font-medium">Rate:</span>
-                      <span>{plan.rate}</span>
-                    </div>
                     <div className="flex justify-between">
                       <span className="font-medium">Cooling:</span>
                       <span>{plan.cooling}</span>
