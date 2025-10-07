@@ -20,9 +20,8 @@ export default function PricingSection() {
       cooling: "Air Cooling & Hydro",
       location: "UAE, Canada, USA, Oman",
       model: "Bitmain & Whatsminer",
-      terms: "1 year and renewable",
+      terms: "5-year and renewal",
       maintenance: "Included",
-      deposit: "2 months",
       bgColor: "bg-amber-700",
       textColor: "text-white",
       buttonColor: "bg-amber-800"
