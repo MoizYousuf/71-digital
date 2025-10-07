@@ -18,7 +18,7 @@ export default function PricingSection() {
     {
       name: "Turnkey Solutions",
       cooling: "Air Cooling & Hydro",
-      location: "UAE, Canada, USA, Oman",
+      location: "UAE, Canada, USA",
       model: "Bitmain & Whatsminer",
       terms: "5-year and renewal",
       maintenance: "Included",
