@@ -162,7 +162,7 @@ export default function GlobalReachSection() {
               </div>
               
               <p className="text-white mb-6 text-sm md:text-base">
-                25MW live. 50MW in expansion.
+                50MW live. 200MW in expansion.
               </p>
               
               <Button 
