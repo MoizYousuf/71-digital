@@ -6,13 +6,11 @@ export default function PricingSection() {
   const plans = [
     {
       name: "Cloud Hosting",
-      hashratePrice: "Cost of miner + $500",
       cooling: "Air Cooling & Hydro",
       model: "Bitmain & Whatsminer",
       terms: "2 year and renewable",
       maintenance: "Included",
       deposit: "One Month Advance",
-      moq: "$3000",
       bgColor: "bg-orange-500",
       textColor: "text-black",
       buttonColor: "bg-orange-600"
@@ -25,7 +23,6 @@ export default function PricingSection() {
       terms: "1 year and renewable",
       maintenance: "Included",
       deposit: "2 months",
-      moq: "1MW+",
       bgColor: "bg-amber-700",
       textColor: "text-white",
       buttonColor: "bg-amber-800"
@@ -43,13 +40,6 @@ export default function PricingSection() {
                   <h3 className="text-2xl font-bold text-center">{plan.name}</h3>
                   
                   <div className="space-y-3 text-sm">
-                    {plan.hashratePrice && (
-                      <div className="flex justify-between">
-                        <span className="font-medium">Initial Cost:</span>
-                        <span className="text-right">{plan.hashratePrice}</span>
-                      </div>
-                    )}
-
                     <div className="flex justify-between">
                       <span className="font-medium">Cooling:</span>
                       <span>{plan.cooling}</span>
@@ -78,10 +68,6 @@ export default function PricingSection() {
                         <span>{plan.deposit}</span>
                       </div>
                     )}
-                    <div className="flex justify-between">
-                      <span className="font-medium">MOQ:</span>
-                      <span>{plan.moq}</span>
-                    </div>
                   </div>
 
                   <Button 
