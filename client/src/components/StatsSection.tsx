@@ -96,7 +96,7 @@ export default function StatsSection() {
   const stats = [
     { value: "97%", label: "Uptime" },
     { value: "Track", label: "Record" },
-    { value: "25 MW", label: "Operating" },
+    { value: "50 MW", label: "Operating" },
     { value: "UAE", label: "Licensed" },
     { value: "Institutional", label: "Clients" },
   ];
