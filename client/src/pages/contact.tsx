@@ -180,11 +180,9 @@ export default function Contact() {
                       </div>
                       <div className="space-y-3">
                         <div>
-                          <p className="text-white font-medium">71 Digital Inc. (Headquarters)</p>
-                          <p className="text-gray-300 text-sm">RAK Digital Assets Oasis</p>
-                          <p className="text-gray-300 text-sm">Post Box #30099, RAKBank Headquarters</p>
-                          <p className="text-gray-300 text-sm">Government of Ras Al Khaimah</p>
-                          <p className="text-gray-300 text-sm">United Arab Emirates</p>
+                          <p className="text-white font-medium">71 Digital Inc.</p>
+                          <p className="text-gray-300 text-sm">Opus Tower, 6th floor, Business Bay</p>
+                          <p className="text-gray-300 text-sm">Dubai, United Arab Emirates</p>
                         </div>
                       </div>
                     </div>
