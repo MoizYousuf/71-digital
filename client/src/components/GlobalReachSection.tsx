@@ -314,8 +314,8 @@ export default function GlobalReachSection() {
                 </div>
                 <div>
                   <p className="text-white font-medium">Office Location</p>
-                  <p className="text-gray-300 text-sm">Office A, RAK DAO Business Centre, Ras</p>
-                  <p className="text-gray-300 text-sm">Al Khaimah, United Arab Emirates</p>
+                  <p className="text-gray-300 text-sm">Opus Tower, 6th floor, Business Bay</p>
+                  <p className="text-gray-300 text-sm">Dubai, United Arab Emirates</p>
                 </div>
               </div>
               
