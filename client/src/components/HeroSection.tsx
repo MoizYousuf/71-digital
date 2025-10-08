@@ -32,7 +32,7 @@ export default function HeroSection() {
             </h2>
 
             {/* Description */}
-            <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
+            <p className="text-base md:text-lg text-gray-300 leading-relaxed mx-auto lg:mx-0">
               Institutional-Grade Bitcoin Mining. Built in the UAE. Scaled Globally.
             </p>
 
