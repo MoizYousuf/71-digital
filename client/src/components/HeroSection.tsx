@@ -33,8 +33,7 @@ export default function HeroSection() {
 
             {/* Description */}
             <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              Institutional-Grade Bitcoin Mining. Built in<br className="hidden md:block" />
-              <span className="md:hidden"> </span>the UAE. Scaled Globally.
+              Institutional-Grade Bitcoin Mining. Built in the UAE. Scaled Globally.
             </p>
 
             {/* CTA Button */}
