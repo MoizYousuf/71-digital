@@ -27,10 +27,20 @@ async function initializeApp() {
     });
 
     // Serve static files in production
+    // Note: Vercel serves static files from outputDirectory automatically,
+    // but we keep this as a fallback for the serverless function
     const distPath = path.resolve(process.cwd(), "dist", "public");
     if (fs.existsSync(distPath)) {
-        app.use(express.static(distPath));
-        // fall through to index.html if the file doesn't exist
+        // Serve static assets with proper cache headers
+        app.use("/assets", express.static(path.join(distPath, "assets"), {
+            maxAge: "1y",
+            immutable: true
+        }));
+        // Serve other static files (favicon, etc.)
+        app.use(express.static(distPath, {
+            maxAge: "1y"
+        }));
+        // fall through to index.html for SPA routes
         app.use("*", (_req, res) => {
             res.sendFile(path.resolve(distPath, "index.html"));
         });
