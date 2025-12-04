@@ -60,7 +60,7 @@ export default function AdminLogin() {
     loginMutation.mutate(data);
   };
 
-  const adminLoginSchema = {
+  const adminLoginPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Admin Login - 71 Digital Management Portal",
@@ -79,7 +79,7 @@ export default function AdminLogin() {
         title="Admin Login - 71 Digital Management Portal | Secure Access"
         description="Secure admin login portal for 71 Digital Bitcoin mining operations management. Access contact submissions, appointment bookings, and administrative controls."
         canonical="https://71digital.io/admin-login"
-        schema={adminLoginSchema}
+        schema={adminLoginPageSchema}
       />
       <Card className="w-full max-w-md bg-white/10 backdrop-blur-sm border-orange-500/30">
         <CardHeader className="space-y-4 text-center">
