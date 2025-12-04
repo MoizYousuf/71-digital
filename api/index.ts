@@ -23,12 +23,12 @@ async function initializeApp(): Promise<void> {
     // Try to register API routes, but don't fail if database is not configured
     // This allows static files to be served even if API routes fail
     const hasDatabase = !!process.env.DATABASE_URL;
-    
+
     if (!hasDatabase) {
         console.warn("⚠️  DATABASE_URL is not set - API routes will not work");
         // Add a fallback for API routes - use all HTTP methods
         app.all("/api/*", (req, res) => {
-            res.status(500).json({ 
+            res.status(500).json({
                 error: "Database not configured",
                 message: "DATABASE_URL environment variable is not set. Please configure it in Vercel project settings."
             });
@@ -45,7 +45,7 @@ async function initializeApp(): Promise<void> {
             console.error("❌ Error importing/registering routes:", importError);
             // Add a fallback route handler for API routes if registration fails
             app.all("/api/*", (req, res) => {
-                res.status(500).json({ 
+                res.status(500).json({
                     error: "Server configuration error",
                     message: importError instanceof Error ? importError.message : "Unknown error"
                 });
@@ -58,10 +58,10 @@ async function initializeApp(): Promise<void> {
     // but we'll also serve them here as a fallback
     const distPath = path.resolve(process.cwd(), "dist", "public");
     const indexPath = path.resolve(distPath, "index.html");
-    
+
     if (fs.existsSync(distPath)) {
         console.log("✅ Static files directory found at:", distPath);
-        
+
         // Check if assets directory exists
         const assetsPath = path.join(distPath, "assets");
         if (fs.existsSync(assetsPath)) {
@@ -71,13 +71,13 @@ async function initializeApp(): Promise<void> {
         } else {
             console.warn("⚠️  Assets directory not found at:", assetsPath);
         }
-        
+
         // Serve static assets - these will be handled by Vercel CDN first, but this is a fallback
         app.use("/assets", (req, res, next) => {
             console.log(`📦 Asset request: ${req.method} ${req.path}`);
             next();
         });
-        
+
         app.use("/assets", express.static(assetsPath, {
             maxAge: "1y",
             immutable: true,
@@ -91,10 +91,10 @@ async function initializeApp(): Promise<void> {
             }
         }));
     }
-    
+
     if (fs.existsSync(indexPath)) {
         console.log("✅ index.html found at:", indexPath);
-        
+
         // SPA fallback: serve index.html for all non-API routes
         // This MUST be registered after static file serving
         // This handles client-side routing (like /admin/login, /admin/dashboard, etc.)
@@ -103,17 +103,17 @@ async function initializeApp(): Promise<void> {
             if (req.path.startsWith("/api")) {
                 return res.status(404).json({ error: "API endpoint not found" });
             }
-            
+
             // Skip if it's a static asset request (should have been handled by static middleware)
             if (req.path.startsWith("/assets") || req.path === "/favicon.png") {
                 return next(); // Let static middleware handle it or return 404
             }
-            
+
             // Only serve index.html for GET/HEAD requests
             if (req.method !== "GET" && req.method !== "HEAD") {
                 return res.status(404).json({ error: "Not found" });
             }
-            
+
             console.log(`📄 Serving index.html for ${req.method} ${req.path} (url: ${req.url}, originalUrl: ${req.originalUrl})`);
             try {
                 // Read and send the file content directly for better compatibility with serverless-http
@@ -127,7 +127,7 @@ async function initializeApp(): Promise<void> {
                 next(fileError);
             }
         });
-        
+
     } else {
         console.error("❌ index.html not found at:", indexPath);
         // Fallback for missing index.html
@@ -135,7 +135,7 @@ async function initializeApp(): Promise<void> {
             if (req.path.startsWith("/api")) {
                 res.status(404).json({ error: "API endpoint not found" });
             } else {
-                res.status(500).json({ 
+                res.status(500).json({
                     error: "Application not built correctly",
                     message: `index.html not found at: ${indexPath}`
                 });
@@ -153,7 +153,7 @@ async function initializeApp(): Promise<void> {
             res.status(status).json({ error: message });
         }
     });
-    
+
     console.log("✅ App initialization complete");
 }
 
@@ -161,7 +161,7 @@ async function initializeApp(): Promise<void> {
 export default async function vercelHandler(req: VercelRequest, res: VercelResponse) {
     try {
         console.log(`📥 Request: ${req.method} ${req.url}`);
-        
+
         // Ensure initialization happens only once
         if (!initializationPromise) {
             console.log("🚀 Initializing app...");
@@ -178,24 +178,23 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
                     // The app should still work for static files even if routes failed
                 });
         }
-        
+
         // Wait for initialization to complete
         await initializationPromise;
-        
+
         // Ensure handler exists
         if (!handler) {
             throw new Error("Handler not initialized");
         }
-        
+
         // Call the handler
         // serverless-http returns a promise that resolves when response is sent
         console.log("🔄 Calling serverless handler...");
         try {
-            // Preserve the original URL for client-side routing
-            // serverless-http might normalize the path, so we ensure the original URL is available
-            const originalUrl = req.url || req.originalUrl || '/';
-            console.log(`📍 Original request URL: ${originalUrl}`);
-            
+            // Log the request URL for debugging
+            // Note: serverless-http might normalize the path, but the client-side router handles routing
+            console.log(`📍 Request URL: ${req.url || '/'}`);
+
             const result = await handler(req, res);
             console.log("✅ Handler completed, response sent:", res.statusCode, "headersSent:", res.headersSent);
             return result;
@@ -211,7 +210,7 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
         console.error("Error stack:", error instanceof Error ? error.stack : "No stack");
         // Make sure we haven't already sent a response
         if (!res.headersSent) {
-            res.status(500).json({ 
+            res.status(500).json({
                 error: "Internal server error",
                 message: error instanceof Error ? error.message : "Unknown error",
                 hint: "Check Vercel function logs for more details"
