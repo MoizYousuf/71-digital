@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import serverless from "serverless-http";
 import express from "express";
-import { registerRoutes } from "../server/routes";
 import path from "path";
 import fs from "fs";
 
@@ -15,9 +14,38 @@ let initializationPromise: Promise<void> | null = null;
 let handler: any = null;
 
 async function initializeApp(): Promise<void> {
-    // Register API routes first (these must come before static file serving)
-    // Note: registerRoutes returns a Server, but we don't need it for serverless
-    await registerRoutes(app);
+    // Try to register API routes, but don't fail if database is not configured
+    // This allows static files to be served even if API routes fail
+    const hasDatabase = !!process.env.DATABASE_URL;
+    
+    if (!hasDatabase) {
+        console.warn("⚠️  DATABASE_URL is not set - API routes will not work");
+        // Add a fallback for API routes
+        app.use("/api/*", (req, res) => {
+            res.status(500).json({ 
+                error: "Database not configured",
+                message: "DATABASE_URL environment variable is not set. Please configure it in Vercel project settings."
+            });
+        });
+    } else {
+        // Dynamically import routes to catch any import-time errors
+        try {
+            const { registerRoutes } = await import("../server/routes");
+            // Register API routes first (these must come before static file serving)
+            // Note: registerRoutes returns a Server, but we don't need it for serverless
+            await registerRoutes(app);
+            console.log("✅ API routes registered successfully");
+        } catch (importError) {
+            console.error("❌ Error importing/registering routes:", importError);
+            // Add a fallback route handler for API routes if registration fails
+            app.use("/api/*", (req, res) => {
+                res.status(500).json({ 
+                    error: "Server configuration error",
+                    message: importError instanceof Error ? importError.message : "Unknown error"
+                });
+            });
+        }
+    }
 
     // Serve static files in production
     // Note: Vercel serves static files from outputDirectory automatically,
@@ -25,6 +53,7 @@ async function initializeApp(): Promise<void> {
     const distPath = path.resolve(process.cwd(), "dist", "public");
     
     if (fs.existsSync(distPath)) {
+        console.log("✅ Static files directory found at:", distPath);
         // Serve static assets with proper cache headers
         app.use("/assets", express.static(path.join(distPath, "assets"), {
             maxAge: "1y",
@@ -63,18 +92,21 @@ async function initializeApp(): Promise<void> {
                     }
                 });
             } else {
-                console.error("index.html not found at:", indexPath);
+                console.error("❌ index.html not found at:", indexPath);
                 res.status(500).json({ error: "Application not built correctly" });
             }
         });
     } else {
-        console.error("dist/public directory not found at:", distPath);
+        console.error("❌ dist/public directory not found at:", distPath);
         // Still allow API routes to work even if static files aren't found
         app.use("*", (req, res) => {
             if (req.path.startsWith("/api")) {
                 res.status(404).json({ error: "API endpoint not found" });
             } else {
-                res.status(500).json({ error: "Static files not found" });
+                res.status(500).json({ 
+                    error: "Static files not found",
+                    message: `Build directory not found at: ${distPath}. Please ensure the build completed successfully.`
+                });
             }
         });
     }
@@ -89,6 +121,8 @@ async function initializeApp(): Promise<void> {
             res.status(status).json({ error: message });
         }
     });
+    
+    console.log("✅ App initialization complete");
 }
 
 // Vercel serverless function handler
@@ -96,26 +130,41 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
     try {
         // Ensure initialization happens only once
         if (!initializationPromise) {
-            initializationPromise = initializeApp().then(() => {
-                // Create serverless handler after initialization
-                handler = serverless(app);
-            });
+            console.log("🚀 Initializing app...");
+            initializationPromise = initializeApp()
+                .then(() => {
+                    // Create serverless handler after initialization
+                    handler = serverless(app);
+                    console.log("✅ Serverless handler created");
+                })
+                .catch((initError) => {
+                    console.error("❌ Initialization failed:", initError);
+                    // Create a minimal handler that just serves static files
+                    handler = serverless(app);
+                    // The app should still work for static files even if routes failed
+                });
         }
         
         // Wait for initialization to complete
         await initializationPromise;
         
+        // Ensure handler exists
+        if (!handler) {
+            throw new Error("Handler not initialized");
+        }
+        
         // Call the handler
         return handler(req, res);
     } catch (error) {
-        console.error("Handler error:", error);
+        console.error("❌ Handler error:", error);
+        console.error("Error stack:", error instanceof Error ? error.stack : "No stack");
         // Make sure we haven't already sent a response
         if (!res.headersSent) {
             res.status(500).json({ 
                 error: "Internal server error",
-                message: error instanceof Error ? error.message : "Unknown error"
+                message: error instanceof Error ? error.message : "Unknown error",
+                hint: "Check Vercel function logs for more details"
             });
         }
     }
 }
-
