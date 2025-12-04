@@ -9,6 +9,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`🔍 Express middleware: ${req.method} ${req.path}`);
+    next();
+});
+
 // Initialize routes - use a promise to ensure initialization happens once
 let initializationPromise: Promise<void> | null = null;
 let handler: any = null;
@@ -67,12 +73,17 @@ async function initializeApp(): Promise<void> {
             
             // Only serve index.html for GET/HEAD requests (normal page navigation)
             if (req.method === "GET" || req.method === "HEAD") {
-                res.sendFile(indexPath, (err) => {
-                    if (err) {
-                        console.error("Error sending index.html:", err);
-                        next(err);
-                    }
-                });
+                console.log(`📄 Serving index.html for ${req.method} ${req.path}`);
+                try {
+                    // Read and send the file content directly for better compatibility with serverless-http
+                    const fileContent = fs.readFileSync(indexPath, 'utf-8');
+                    res.setHeader('Content-Type', 'text/html');
+                    res.status(200).send(fileContent);
+                    console.log("✅ index.html sent successfully");
+                } catch (fileError) {
+                    console.error("❌ Error reading/sending index.html:", fileError);
+                    next(fileError);
+                }
             } else {
                 // Other HTTP methods return 404
                 res.status(404).json({ error: "Not found" });
@@ -140,9 +151,17 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
         // Call the handler
         // serverless-http returns a promise that resolves when response is sent
         console.log("🔄 Calling serverless handler...");
-        const result = await handler(req, res);
-        console.log("✅ Handler completed");
-        return result;
+        try {
+            const result = await handler(req, res);
+            console.log("✅ Handler completed, response sent:", res.statusCode);
+            return result;
+        } catch (handlerError) {
+            console.error("❌ Handler error:", handlerError);
+            if (!res.headersSent) {
+                res.status(500).json({ error: "Handler error" });
+            }
+            throw handlerError;
+        }
     } catch (error) {
         console.error("❌ Handler error:", error);
         console.error("Error stack:", error instanceof Error ? error.stack : "No stack");
