@@ -12,7 +12,7 @@
       "destination": "/api/index"
     },
     {
-      "source": "/((?!assets|favicon\\.png|.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)).*)",
+      "source": "/(.*)",
       "destination": "/api/index"
     }
   ]
