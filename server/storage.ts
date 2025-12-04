@@ -1,5 +1,5 @@
 import { users, contactSubmissions, appointments, adminUsers, adminSessions, type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type Appointment, type InsertAppointment, type AdminUser, type InsertAdminUser, type AdminSession } from "@shared/schema";
-import { db } from "./db";
+import { db } from "./db.js";
 import { eq, desc, and, gt } from "drizzle-orm";
 
 export interface IStorage {
