@@ -56,31 +56,27 @@ async function initializeApp(): Promise<void> {
     if (fs.existsSync(indexPath)) {
         console.log("✅ index.html found at:", indexPath);
         
-        // SPA fallback: serve index.html for all non-API GET/HEAD requests
+        // SPA fallback: serve index.html for all non-API routes
         // This handles client-side routing (like /admin/login, /admin/dashboard, etc.)
-        app.get("*", (req, res, next) => {
-            // Skip if it's an API route
+        // Must be registered last to catch all non-API routes
+        app.use("*", (req, res, next) => {
+            // Skip if it's an API route (should have been handled already)
             if (req.path.startsWith("/api")) {
                 return res.status(404).json({ error: "API endpoint not found" });
             }
             
-            // Serve index.html for SPA routing
-            res.sendFile(indexPath, (err) => {
-                if (err) {
-                    console.error("Error sending index.html:", err);
-                    next(err);
-                }
-            });
-        });
-        
-        // Handle other HTTP methods for non-API routes (POST, PUT, DELETE, etc.)
-        app.all("*", (req, res) => {
-            if (req.path.startsWith("/api")) {
-                res.status(404).json({ error: "API endpoint not found" });
-            } else if (req.method !== "GET" && req.method !== "HEAD") {
+            // Only serve index.html for GET/HEAD requests (normal page navigation)
+            if (req.method === "GET" || req.method === "HEAD") {
+                res.sendFile(indexPath, (err) => {
+                    if (err) {
+                        console.error("Error sending index.html:", err);
+                        next(err);
+                    }
+                });
+            } else {
+                // Other HTTP methods return 404
                 res.status(404).json({ error: "Not found" });
             }
-            // GET/HEAD requests are handled by app.get("*") above
         });
     } else {
         console.error("❌ index.html not found at:", indexPath);
@@ -114,6 +110,8 @@ async function initializeApp(): Promise<void> {
 // Vercel serverless function handler
 export default async function vercelHandler(req: VercelRequest, res: VercelResponse) {
     try {
+        console.log(`📥 Request: ${req.method} ${req.url}`);
+        
         // Ensure initialization happens only once
         if (!initializationPromise) {
             console.log("🚀 Initializing app...");
@@ -141,7 +139,10 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
         
         // Call the handler
         // serverless-http returns a promise that resolves when response is sent
-        return handler(req, res);
+        console.log("🔄 Calling serverless handler...");
+        const result = await handler(req, res);
+        console.log("✅ Handler completed");
+        return result;
     } catch (error) {
         console.error("❌ Handler error:", error);
         console.error("Error stack:", error instanceof Error ? error.stack : "No stack");
