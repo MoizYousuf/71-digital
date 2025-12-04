@@ -10,27 +10,20 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Initialize routes
-let appInitialized = false;
-let handlerPromise: Promise<any> | null = null;
+// Initialize routes - use a promise to ensure initialization happens once
+let initializationPromise: Promise<void> | null = null;
+let handler: any = null;
 
-async function initializeApp() {
-    if (appInitialized) return;
-
+async function initializeApp(): Promise<void> {
     // Register API routes first (these must come before static file serving)
+    // Note: registerRoutes returns a Server, but we don't need it for serverless
     await registerRoutes(app);
-
-    // Error handler for API routes
-    app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-        const status = err.status || err.statusCode || 500;
-        const message = err.message || "Internal Server Error";
-        res.status(status).json({ message });
-    });
 
     // Serve static files in production
     // Note: Vercel serves static files from outputDirectory automatically,
     // but we keep this as a fallback for the serverless function
     const distPath = path.resolve(process.cwd(), "dist", "public");
+    
     if (fs.existsSync(distPath)) {
         // Serve static assets with proper cache headers
         app.use("/assets", express.static(path.join(distPath, "assets"), {
@@ -61,27 +54,68 @@ async function initializeApp() {
             
             // For GET/HEAD requests to non-API routes, serve index.html
             // This allows the SPA router (wouter) to handle client-side routing
-            res.sendFile(path.resolve(distPath, "index.html"), (err) => {
-                if (err) {
-                    next(err);
-                }
-            });
+            const indexPath = path.resolve(distPath, "index.html");
+            if (fs.existsSync(indexPath)) {
+                res.sendFile(indexPath, (err) => {
+                    if (err) {
+                        console.error("Error sending index.html:", err);
+                        next(err);
+                    }
+                });
+            } else {
+                console.error("index.html not found at:", indexPath);
+                res.status(500).json({ error: "Application not built correctly" });
+            }
+        });
+    } else {
+        console.error("dist/public directory not found at:", distPath);
+        // Still allow API routes to work even if static files aren't found
+        app.use("*", (req, res) => {
+            if (req.path.startsWith("/api")) {
+                res.status(404).json({ error: "API endpoint not found" });
+            } else {
+                res.status(500).json({ error: "Static files not found" });
+            }
         });
     }
 
-    appInitialized = true;
+    // Error handler must be last (after all routes)
+    // Express error handlers have 4 parameters: (err, req, res, next)
+    app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+        console.error("Express error:", err);
+        const status = err.status || err.statusCode || 500;
+        const message = err.message || "Internal Server Error";
+        if (!res.headersSent) {
+            res.status(status).json({ error: message });
+        }
+    });
 }
 
 // Vercel serverless function handler
 export default async function vercelHandler(req: VercelRequest, res: VercelResponse) {
-    // Initialize app if not already done
-    if (!appInitialized) {
-        await initializeApp();
-        // Create serverless handler after initialization
-        handlerPromise = Promise.resolve(serverless(app));
+    try {
+        // Ensure initialization happens only once
+        if (!initializationPromise) {
+            initializationPromise = initializeApp().then(() => {
+                // Create serverless handler after initialization
+                handler = serverless(app);
+            });
+        }
+        
+        // Wait for initialization to complete
+        await initializationPromise;
+        
+        // Call the handler
+        return handler(req, res);
+    } catch (error) {
+        console.error("Handler error:", error);
+        // Make sure we haven't already sent a response
+        if (!res.headersSent) {
+            res.status(500).json({ 
+                error: "Internal server error",
+                message: error instanceof Error ? error.message : "Unknown error"
+            });
+        }
     }
-
-    const handler = await handlerPromise!;
-    return handler(req, res);
 }
 
