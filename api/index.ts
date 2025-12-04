@@ -62,10 +62,33 @@ async function initializeApp(): Promise<void> {
     if (fs.existsSync(distPath)) {
         console.log("✅ Static files directory found at:", distPath);
         
+        // Check if assets directory exists
+        const assetsPath = path.join(distPath, "assets");
+        if (fs.existsSync(assetsPath)) {
+            console.log("✅ Assets directory found at:", assetsPath);
+            const assetsFiles = fs.readdirSync(assetsPath);
+            console.log(`✅ Found ${assetsFiles.length} asset files:`, assetsFiles.slice(0, 5).join(", "), "...");
+        } else {
+            console.warn("⚠️  Assets directory not found at:", assetsPath);
+        }
+        
         // Serve static assets - these will be handled by Vercel CDN first, but this is a fallback
-        app.use("/assets", express.static(path.join(distPath, "assets"), {
+        app.use("/assets", (req, res, next) => {
+            console.log(`📦 Asset request: ${req.method} ${req.path}`);
+            next();
+        });
+        
+        app.use("/assets", express.static(assetsPath, {
             maxAge: "1y",
-            immutable: true
+            immutable: true,
+            setHeaders: (res, filePath) => {
+                // Set proper CORS and content-type headers for JS/CSS modules
+                if (filePath.endsWith('.js')) {
+                    res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+                } else if (filePath.endsWith('.css')) {
+                    res.setHeader('Content-Type', 'text/css; charset=utf-8');
+                }
+            }
         }));
     }
     
@@ -168,8 +191,13 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
         // serverless-http returns a promise that resolves when response is sent
         console.log("🔄 Calling serverless handler...");
         try {
+            // Preserve the original URL for client-side routing
+            // serverless-http might normalize the path, so we ensure the original URL is available
+            const originalUrl = req.url || req.originalUrl || '/';
+            console.log(`📍 Original request URL: ${originalUrl}`);
+            
             const result = await handler(req, res);
-            console.log("✅ Handler completed, response sent:", res.statusCode);
+            console.log("✅ Handler completed, response sent:", res.statusCode, "headersSent:", res.headersSent);
             return result;
         } catch (handlerError) {
             console.error("❌ Handler error:", handlerError);

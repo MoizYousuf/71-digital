@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "yarn build",
   "outputDirectory": "dist/public",
   "functions": {
     "api/index.ts": {
@@ -17,4 +17,3 @@
     }
   ]
 }
-
