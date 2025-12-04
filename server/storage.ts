@@ -1,4 +1,4 @@
-import { users, contactSubmissions, appointments, adminUsers, adminSessions, type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type Appointment, type InsertAppointment, type AdminUser, type InsertAdminUser, type AdminSession } from "@shared/schema";
+import { users, contactSubmissions, appointments, adminUsers, adminSessions, type User, type InsertUser, type ContactSubmission, type InsertContactSubmission, type Appointment, type InsertAppointment, type AdminUser, type InsertAdminUser, type AdminSession } from "../shared/schema.js";
 import { db } from "./db.js";
 import { eq, desc, and, gt } from "drizzle-orm";
 
