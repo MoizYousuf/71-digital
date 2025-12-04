@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Request logging middleware
 app.use((req, res, next) => {
-    console.log(`🔍 Express middleware: ${req.method} ${req.path}`);
+    console.log(`🔍 Express middleware: ${req.method} ${req.path} (url: ${req.url}, originalUrl: ${req.originalUrl})`);
     next();
 });
 
@@ -62,15 +62,10 @@ async function initializeApp(): Promise<void> {
     if (fs.existsSync(distPath)) {
         console.log("✅ Static files directory found at:", distPath);
         
-        // Serve static assets first (before SPA fallback)
+        // Serve static assets - these will be handled by Vercel CDN first, but this is a fallback
         app.use("/assets", express.static(path.join(distPath, "assets"), {
             maxAge: "1y",
             immutable: true
-        }));
-        
-        // Serve other static files (favicon, etc.)
-        app.use(express.static(distPath, {
-            maxAge: "1y"
         }));
     }
     
@@ -78,32 +73,38 @@ async function initializeApp(): Promise<void> {
         console.log("✅ index.html found at:", indexPath);
         
         // SPA fallback: serve index.html for all non-API routes
+        // This MUST be registered after static file serving
         // This handles client-side routing (like /admin/login, /admin/dashboard, etc.)
-        // Must be registered last to catch all non-API routes
         app.use("*", (req, res, next) => {
             // Skip if it's an API route (should have been handled already)
             if (req.path.startsWith("/api")) {
                 return res.status(404).json({ error: "API endpoint not found" });
             }
             
-            // Only serve index.html for GET/HEAD requests (normal page navigation)
-            if (req.method === "GET" || req.method === "HEAD") {
-                console.log(`📄 Serving index.html for ${req.method} ${req.path}`);
-                try {
-                    // Read and send the file content directly for better compatibility with serverless-http
-                    const fileContent = fs.readFileSync(indexPath, 'utf-8');
-                    res.setHeader('Content-Type', 'text/html');
-                    res.status(200).send(fileContent);
-                    console.log("✅ index.html sent successfully");
-                } catch (fileError) {
-                    console.error("❌ Error reading/sending index.html:", fileError);
-                    next(fileError);
-                }
-            } else {
-                // Other HTTP methods return 404
-                res.status(404).json({ error: "Not found" });
+            // Skip if it's a static asset request (should have been handled by static middleware)
+            if (req.path.startsWith("/assets") || req.path === "/favicon.png") {
+                return next(); // Let static middleware handle it or return 404
+            }
+            
+            // Only serve index.html for GET/HEAD requests
+            if (req.method !== "GET" && req.method !== "HEAD") {
+                return res.status(404).json({ error: "Not found" });
+            }
+            
+            console.log(`📄 Serving index.html for ${req.method} ${req.path} (url: ${req.url}, originalUrl: ${req.originalUrl})`);
+            try {
+                // Read and send the file content directly for better compatibility with serverless-http
+                const fileContent = fs.readFileSync(indexPath, 'utf-8');
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+                res.status(200).send(fileContent);
+                console.log("✅ index.html sent successfully, length:", fileContent.length);
+            } catch (fileError) {
+                console.error("❌ Error reading/sending index.html:", fileError);
+                next(fileError);
             }
         });
+        
     } else {
         console.error("❌ index.html not found at:", indexPath);
         // Fallback for missing index.html
