@@ -114,7 +114,7 @@ async function initializeApp(): Promise<void> {
                 return res.status(404).json({ error: "Not found" });
             }
 
-            console.log(`📄 Serving index.html for ${req.method} ${req.path} (url: ${req.url}, originalUrl: ${req.originalUrl})`);
+            console.log(`📄 Serving index.html for ${req.method} ${req.path} (url: ${req.url})`);
             try {
                 // Read and send the file content directly for better compatibility with serverless-http
                 const fileContent = fs.readFileSync(indexPath, 'utf-8');
@@ -122,6 +122,10 @@ async function initializeApp(): Promise<void> {
                 res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
                 res.status(200).send(fileContent);
                 console.log("✅ index.html sent successfully, length:", fileContent.length);
+                // Explicitly end the response to ensure serverless-http knows it's complete
+                if (!res.headersSent || res.writableEnded === false) {
+                    res.end();
+                }
             } catch (fileError) {
                 console.error("❌ Error reading/sending index.html:", fileError);
                 next(fileError);

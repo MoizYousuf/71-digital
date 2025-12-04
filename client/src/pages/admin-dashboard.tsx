@@ -87,38 +87,74 @@ export default function AdminDashboard() {
     };
   };
 
-  const { data: contacts, isLoading: contactsLoading } = useQuery({
+  const { data: contacts, isLoading: contactsLoading, error: contactsError } = useQuery({
     queryKey: ["/api/admin/contacts"],
     queryFn: async () => {
-      const res = await fetch("/api/admin/contacts", {
-        headers: getAuthHeaders(),
-      });
-      if (!res.ok) throw new Error("Failed to fetch contacts");
-      return res.json();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      try {
+        const res = await fetch("/api/admin/contacts", {
+          headers: getAuthHeaders(),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        if (!res.ok) throw new Error("Failed to fetch contacts");
+        return res.json();
+      } catch (error) {
+        clearTimeout(timeoutId);
+        if (error instanceof Error && error.name === 'AbortError') {
+          throw new Error("Request timeout - please check your connection");
+        }
+        throw error;
+      }
     },
     enabled: !!adminUser,
   });
 
-  const { data: appointments, isLoading: appointmentsLoading } = useQuery({
+  const { data: appointments, isLoading: appointmentsLoading, error: appointmentsError } = useQuery({
     queryKey: ["/api/admin/appointments"],
     queryFn: async () => {
-      const res = await fetch("/api/admin/appointments", {
-        headers: getAuthHeaders(),
-      });
-      if (!res.ok) throw new Error("Failed to fetch appointments");
-      return res.json();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      try {
+        const res = await fetch("/api/admin/appointments", {
+          headers: getAuthHeaders(),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        if (!res.ok) throw new Error("Failed to fetch appointments");
+        return res.json();
+      } catch (error) {
+        clearTimeout(timeoutId);
+        if (error instanceof Error && error.name === 'AbortError') {
+          throw new Error("Request timeout - please check your connection");
+        }
+        throw error;
+      }
     },
     enabled: !!adminUser,
   });
 
-  const { data: admins, isLoading: adminsLoading } = useQuery({
+  const { data: admins, isLoading: adminsLoading, error: adminsError } = useQuery({
     queryKey: ["/api/admin/admins"],
     queryFn: async () => {
-      const res = await fetch("/api/admin/admins", {
-        headers: getAuthHeaders(),
-      });
-      if (!res.ok) throw new Error("Failed to fetch admins");
-      return res.json();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      try {
+        const res = await fetch("/api/admin/admins", {
+          headers: getAuthHeaders(),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        if (!res.ok) throw new Error("Failed to fetch admins");
+        return res.json();
+      } catch (error) {
+        clearTimeout(timeoutId);
+        if (error instanceof Error && error.name === 'AbortError') {
+          throw new Error("Request timeout - please check your connection");
+        }
+        throw error;
+      }
     },
     enabled: !!adminUser,
   });
