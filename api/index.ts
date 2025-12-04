@@ -55,9 +55,24 @@ async function initializeApp(): Promise<void> {
 
     // SPA fallback: serve index.html for all non-API routes
     // Note: Vercel serves static files from outputDirectory automatically,
-    // so we only need to handle SPA routing here
+    // but we'll also serve them here as a fallback
     const distPath = path.resolve(process.cwd(), "dist", "public");
     const indexPath = path.resolve(distPath, "index.html");
+    
+    if (fs.existsSync(distPath)) {
+        console.log("✅ Static files directory found at:", distPath);
+        
+        // Serve static assets first (before SPA fallback)
+        app.use("/assets", express.static(path.join(distPath, "assets"), {
+            maxAge: "1y",
+            immutable: true
+        }));
+        
+        // Serve other static files (favicon, etc.)
+        app.use(express.static(distPath, {
+            maxAge: "1y"
+        }));
+    }
     
     if (fs.existsSync(indexPath)) {
         console.log("✅ index.html found at:", indexPath);
