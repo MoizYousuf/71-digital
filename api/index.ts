@@ -20,8 +20,8 @@ async function initializeApp(): Promise<void> {
     
     if (!hasDatabase) {
         console.warn("⚠️  DATABASE_URL is not set - API routes will not work");
-        // Add a fallback for API routes
-        app.use("/api/*", (req, res) => {
+        // Add a fallback for API routes - use all HTTP methods
+        app.all("/api/*", (req, res) => {
             res.status(500).json({ 
                 error: "Database not configured",
                 message: "DATABASE_URL environment variable is not set. Please configure it in Vercel project settings."
@@ -30,7 +30,7 @@ async function initializeApp(): Promise<void> {
     } else {
         // Dynamically import routes to catch any import-time errors
         try {
-            const { registerRoutes } = await import("../server/routes");
+            const { registerRoutes } = await import("../server/routes.js");
             // Register API routes first (these must come before static file serving)
             // Note: registerRoutes returns a Server, but we don't need it for serverless
             await registerRoutes(app);
@@ -38,7 +38,7 @@ async function initializeApp(): Promise<void> {
         } catch (importError) {
             console.error("❌ Error importing/registering routes:", importError);
             // Add a fallback route handler for API routes if registration fails
-            app.use("/api/*", (req, res) => {
+            app.all("/api/*", (req, res) => {
                 res.status(500).json({ 
                     error: "Server configuration error",
                     message: importError instanceof Error ? importError.message : "Unknown error"
@@ -47,65 +47,51 @@ async function initializeApp(): Promise<void> {
         }
     }
 
-    // Serve static files in production
+    // SPA fallback: serve index.html for all non-API routes
     // Note: Vercel serves static files from outputDirectory automatically,
-    // but we keep this as a fallback for the serverless function
+    // so we only need to handle SPA routing here
     const distPath = path.resolve(process.cwd(), "dist", "public");
+    const indexPath = path.resolve(distPath, "index.html");
     
-    if (fs.existsSync(distPath)) {
-        console.log("✅ Static files directory found at:", distPath);
-        // Serve static assets with proper cache headers
-        app.use("/assets", express.static(path.join(distPath, "assets"), {
-            maxAge: "1y",
-            immutable: true
-        }));
+    if (fs.existsSync(indexPath)) {
+        console.log("✅ index.html found at:", indexPath);
         
-        // Serve other static files (favicon, etc.) - only if they exist
-        // express.static automatically calls next() if file doesn't exist
-        app.use(express.static(distPath, {
-            maxAge: "1y"
-        }));
-        
-        // SPA fallback: serve index.html for all non-API routes
+        // SPA fallback: serve index.html for all non-API GET/HEAD requests
         // This handles client-side routing (like /admin/login, /admin/dashboard, etc.)
-        // and allows wouter to handle 404s for non-existent routes
-        app.use("*", (req, res, next) => {
-            // Skip if it's an API route (should have been handled by registerRoutes)
+        app.get("*", (req, res, next) => {
+            // Skip if it's an API route
             if (req.path.startsWith("/api")) {
                 return res.status(404).json({ error: "API endpoint not found" });
             }
             
-            // Only serve index.html for GET/HEAD requests (normal page navigation)
-            // Other methods (POST, PUT, DELETE) to non-API routes should return 404
-            if (req.method !== "GET" && req.method !== "HEAD") {
-                return res.status(404).json({ error: "Not found" });
+            // Serve index.html for SPA routing
+            res.sendFile(indexPath, (err) => {
+                if (err) {
+                    console.error("Error sending index.html:", err);
+                    next(err);
+                }
+            });
+        });
+        
+        // Handle other HTTP methods for non-API routes (POST, PUT, DELETE, etc.)
+        app.all("*", (req, res) => {
+            if (req.path.startsWith("/api")) {
+                res.status(404).json({ error: "API endpoint not found" });
+            } else if (req.method !== "GET" && req.method !== "HEAD") {
+                res.status(404).json({ error: "Not found" });
             }
-            
-            // For GET/HEAD requests to non-API routes, serve index.html
-            // This allows the SPA router (wouter) to handle client-side routing
-            const indexPath = path.resolve(distPath, "index.html");
-            if (fs.existsSync(indexPath)) {
-                res.sendFile(indexPath, (err) => {
-                    if (err) {
-                        console.error("Error sending index.html:", err);
-                        next(err);
-                    }
-                });
-            } else {
-                console.error("❌ index.html not found at:", indexPath);
-                res.status(500).json({ error: "Application not built correctly" });
-            }
+            // GET/HEAD requests are handled by app.get("*") above
         });
     } else {
-        console.error("❌ dist/public directory not found at:", distPath);
-        // Still allow API routes to work even if static files aren't found
+        console.error("❌ index.html not found at:", indexPath);
+        // Fallback for missing index.html
         app.use("*", (req, res) => {
             if (req.path.startsWith("/api")) {
                 res.status(404).json({ error: "API endpoint not found" });
             } else {
                 res.status(500).json({ 
-                    error: "Static files not found",
-                    message: `Build directory not found at: ${distPath}. Please ensure the build completed successfully.`
+                    error: "Application not built correctly",
+                    message: `index.html not found at: ${indexPath}`
                 });
             }
         });
@@ -154,6 +140,7 @@ export default async function vercelHandler(req: VercelRequest, res: VercelRespo
         }
         
         // Call the handler
+        // serverless-http returns a promise that resolves when response is sent
         return handler(req, res);
     } catch (error) {
         console.error("❌ Handler error:", error);
